@@ -1,0 +1,44 @@
+[
+    {
+        "keyid": "3",
+        "gname": "广运集团",
+        "power": "1,2",
+        "statetime": "2017/9/15 9:41:20",
+        "usrcount": "1"
+    },
+    {
+        "keyid": "4",
+        "gname": "测试20170904",
+        "power": "1,2",
+        "statetime": "2017/9/14 16:38:49",
+        "usrcount": "1"
+    },
+    {
+        "keyid": "5",
+        "gname": "广元公交",
+        "power": "1,2",
+        "statetime": "2017/9/15 9:41:04",
+        "usrcount": "1"
+    },
+    {
+        "keyid": "6",
+        "gname": "泸州公交",
+        "power": "1,2",
+        "statetime": "2017/9/15 9:41:43",
+        "usrcount": "1"
+    },
+    {
+        "keyid": "16",
+        "gname": "宜宾公交",
+        "power": "1",
+        "statetime": "2017/10/15 15:34:16",
+        "usrcount": "1"
+    },
+    {
+        "keyid": "17",
+        "gname": "攀枝花公交",
+        "power": "1",
+        "statetime": "2017/10/16 10:25:27",
+        "usrcount": "1"
+    }
+]
