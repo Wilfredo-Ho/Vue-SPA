@@ -1,4 +1,4 @@
-# rms
+# Demo
 
 > A Vue.js project
 
