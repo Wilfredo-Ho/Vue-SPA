@@ -7,7 +7,8 @@
   			:zoom="zoom"
   			@ready="handler"
   			@zoomend="getZoom"
-  			:scroll-wheel-zoom="true">
+  			:scroll-wheel-zoom="true"
+        ref="map">
   			<bm-marker
   				v-for="marker in markerArr"
   				:key="marker.carnumber"
