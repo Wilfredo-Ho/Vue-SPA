@@ -61,8 +61,8 @@ export default {
 	cursor: pointer;
 }
 .nav li.active{
-	color: #0f0;
-	border-bottom: 2px solid #4f4;
+	color: #05cddc;
+	border-bottom: 2px solid #05cddc;
 
 }
 table{
@@ -76,7 +76,7 @@ table tr{
 table td{
 	width: 50%;
 	/*border: 1px solid #ddd;*/
-	padding: 10px;
+	padding: 9px 10px;
 }
 table tr > td:first-child{
 	border-right: 1px solid #ddd;

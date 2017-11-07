@@ -5,9 +5,12 @@
   				<h5>历时回放</h5>
 	  			<div class="chart chart-map">
 	  				<baidu-map
-						center="天津"
+						:center="{lng: markers[0].longitude, lat: markers[0].latitude}"
 						:zoom="13"
 						:height="200"
+						:markers="markers"
+						:markerInfo="markerInfo"
+						@get-car-data="getCarData"
 	  				></baidu-map>
 	  			</div>
   			</div>
@@ -27,8 +30,15 @@
   		<div class="row">
   			<div class="chart-item">
   				<div class="chart">
-  					<chart class="chart-gauge" :options="bar"></chart>
-  					<chart class="chart-gauge" :options="bar"></chart>
+  					<gauge 
+  							class="chart-gauge" 
+  							:data="gaugeData"
+  							:stylesheet="gaugeDataStyle"
+					></gauge>
+  					<gauge
+  							class="chart-gauge" 
+  							:stylesheet="gaugeDataStyle"
+							:data="gaugeData1"></gauge>
   				</div>
   			</div>
   			<div class="chart-item">
@@ -43,48 +53,35 @@
 <script> 
 import ECharts from 'vue-echarts/components/ECharts'
 import 'echarts/lib/chart/bar'
+// import 'echarts/lib/chart/gauge'
+import Bar from '../data/echarts/Bar'
+// import Gauge from '../data/echarts/Gauge'
+import Gauge from '../components/echarts/Gauge'
+
 import BaiduMap from '../components/Map'
 import Tabs from '../components/Tabs'
+
+import axios from 'axios'
+import qs from 'qs'
 
 export default { 
 	data () { 
 		return { 
-			bar: {
-				color: ['#3398DB'],
-			    tooltip : {
-			        trigger: 'axis',
-			        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-			            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-			        }
-			    },
-			    grid: {
-			        left: '3%',
-			        right: '4%',
-			        bottom: '3%',
-			        containLabel: true
-			    },
-			    xAxis : [
-			        {
-			            type : 'category',
-			            data : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-			            axisTick: {
-			                alignWithLabel: true
-			            }
-			        }
-			    ],
-			    yAxis : [
-			        {
-			            type : 'value'
-			        }
-			    ],
-			    series : [
-			        {
-			            name:'直接访问',
-			            type:'bar',
-			            barWidth: '60%',
-			            data:[10, 52, 200, 334, 390, 330, 220]
-			        }
-			    ]
+			markers: [
+				{
+					carnumber: 170132,
+					longitude: 106.901147,
+					latitude: 27.637408,
+					carstate: 0
+				}
+			],
+			markerInfo: "",
+			bar: Bar,
+			gaugeData: [{value: 60, name: '完成率'}],
+			gaugeData1: [{value: 30, name: '平均速度'}],
+			gaugeDataStyle: {
+				width: '100%',
+				height: '280px'
 			},
 			content: [
 				{
@@ -151,12 +148,55 @@ export default {
 	components: {
 		chart: ECharts,
 		BaiduMap,
-		Tabs
+		Tabs,
+		Gauge
+	},
+	methods: {
+		getCarData (val) {
+			/*axios.get('http://123.127.164.36:50002/Data/CarnumInfoState.ashx', qs.stringify({carnumber: val}))
+			.then(function(res){
+				alert(0)
+			})
+			.catch(function(err){
+				alert(err)
+			})*/
+			let obj = {
+				"carnumber":"170132",
+				"VIN":"LC940D02XH1LCD132",
+				"unitnumber":"2017070010061",
+				"carstate":"离线",
+				"speed":"0.0",
+				"soc":"100.0",
+				"GetJsonDataTime":"2017/10/20 1:20:21"
+			}
+			let dictionary = ["车牌号", "VIN", "PNO", "状态", "速度", "SOC", "更新时间"]
+			let str = '<div class="map-info" style="font-size: 14px;">'
+			let j = 0
+			for(var i in obj){
+				str += "<p><strong>" + dictionary[j] + "</strong> : " + obj[i] +"</p>"
+				j++
+			}
+			str += "</div>"
+			this.markerInfo = str
+		}
+	},
+	mounted(){
+		let that = this
+		this.$nextTick(function(){
+			setInterval(function(){
+				that.gaugeData[0].value = (Math.random() * 100).toFixed(2)
+				that.gaugeData1[0].value = (Math.random() * 100).toFixed(2)
+			}, 1000)
+		})	
 	}
 }; 
 </script> 
  
-<style scoped>  
+<style scoped> 
+.echarts{
+	width: 100%;
+	height: 180px;
+} 
 .chart-item{
 	width: 49.5%;
 	float: left;
@@ -197,5 +237,8 @@ export default {
 	height: 280px;
 	overflow: hidden;
 	display: inline-block;
+}
+.map-info{
+	font-size: 12px;
 }
 </style> 

@@ -10,13 +10,22 @@
   			ref="map">
   			<bm-marker
   				v-if="markers.length > 0"
-  				></bm-marker>
+  				v-for="marker in markers"
+  				:key="marker.carnumber"
+  				:position="{lng: marker.longitude, lat: marker.latitude}"
+  				@click="infoWindowOpen(marker.carnumber)"
+			>
+				<bm-info-window
+					:show="show"
+					v-html="markerInfo"
+				></bm-info-window>
+			</bm-marker>
   		</baidu-map>
 	</div>
 </template> 
  
 <script>
-import { BaiduMap, BmMarker } from 'vue-baidu-map'
+import { BaiduMap, BmMarker, BmInfoWindow } from 'vue-baidu-map'
 
 export default { 
  
@@ -24,8 +33,10 @@ export default {
 
 	props: { 
 		center: {
-			type: String,
-			default: '中国'
+			type: Object,
+			default: function(){
+				return {}
+			}
 		},
 		zoom: {
 			type: Number,
@@ -40,21 +51,29 @@ export default {
 		height: {
 			type: Number,
 			default: 450
+		},
+		markerInfo: {
+			type: String,
+			default: ""
 		}
 	}, 
 
 	data () { 
 		return { 
-
+			show: false
 		}; 
 	}, 
 
 	methods: { 
 	 	handler () {
-			//this.$refs.map.style.height = this.height + 'px'
+			
 	 	},
 	 	init () {
 	 		
+	 	},
+	 	infoWindowOpen(val){
+	 		this.$emit('get-car-data', val)
+	 		this.show = !this.show
 	 	}
 	}, 
 
@@ -69,7 +88,8 @@ export default {
 
 	components: {
 		BaiduMap,
-		BmMarker
+		BmMarker,
+		BmInfoWindow
 	} 
 }; 
 </script>
