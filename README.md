@@ -24,3 +24,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
   * echarts和BMap的大小不能从父元素控制
   * echarts的tooptip无法触发
 
+2. 2017-11-07 23：09
+	* 封装模态框组件
+	* 引入消息通知类组件
+
