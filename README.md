@@ -1,5 +1,4 @@
-# rms
-
+# SPA
 > A Vue.js project
 
 ## Build Setup
@@ -19,3 +18,9 @@ npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+***
+1. 2017-11-07
+  echarts和BMap的大小不能从父元素控制
+  echarts的tooptip无法触发
+
